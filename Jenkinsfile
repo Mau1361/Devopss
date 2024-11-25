@@ -19,5 +19,21 @@ pipeline {
                 sh 'mvn clean package -X'
             }
         }
+        stage("SonarQube Analysis") {
+            steps {
+        withSonarQubeEnv('sonar-server') {
+            withCredentials([string(credentialsId: 'sonat_token', variable: 'SONAT_TOKEN')]) { 
+                sh '''
+                $SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.projectName=Devopss \
+                    -Dsonar.java.binaries=. \
+                    -Dsonar.projectKey=Devopss \
+                    -Dsonar.login=$SONAT_TOKEN
+                '''
+            }
+        }
+    }
+}
+
     }
 }
