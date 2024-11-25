@@ -25,14 +25,11 @@ pipeline {
         }
         stage("SonarQube Analysis") {
             steps {
-                withSonarQubeEnv('sonar-server') {
-                    sh '''
-                    ${SCANNER_HOME}/bin/sonar-scanner \
+                sh ''' mvn sonar:sonar Dsonar.url-http://13.233.56.185:9000/ -Dsonar.login-squ_76ee09c78d860d720d73a685e54da7986e88678e
                         -Dsonar.projectName=Devopss \
                         -Dsonar.java.binaries=. \
-                        -Dsonar.projectKey=Devopss \
-                        -Dsonar.login=$SONAT_TOKEN
-                    '''
+                        -Dsonar.projectKey=Devopss '''
+                       
                 }
             }
         }
