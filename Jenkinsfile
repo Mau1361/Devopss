@@ -20,7 +20,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonar-server') {
+                withSonarQubeEnv('sonar-scanner') {
                     sh '''
                     mvn sonar:sonar \
                         -Dsonar.host.url=${SONAR_HOST_URL} \
